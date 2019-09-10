@@ -1,0 +1,29 @@
+<div class="card">
+    <div class="card-header">
+      Lista de Estudantes</div>
+    <div class="card-body">
+      <div class="table-responsive"
+           *ngIf='estudantes && estudantes.length'>
+        <table class="table">
+          <thead>
+            <tr>
+              <th><button class="btn btn-primary"
+                        onclick="">
+                  Foto do Estudante </button></th>
+              <th>Nome</th>
+              <th>Sexo</th>
+              <th>Planeta</th>
+            </tr>
+          </thead>
+          <tbody>
+             <tr *ngFor='let estudante of estudantes'>
+              <td>{{estudante.url}}</td>
+              <td>{{estudante.nome}}</td>
+              <td>{{estudante.altura}}</td>
+              <td>{{estudante.planeta}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
