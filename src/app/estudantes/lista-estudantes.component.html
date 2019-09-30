@@ -1,29 +1,49 @@
 <div class="card">
-    <div class="card-header">
-      Lista de Estudantes</div>
-    <div class="card-body">
-      <div class="table-responsive"
-           *ngIf='estudantes && estudantes.length'>
-        <table class="table">
-          <thead>
-            <tr>
-              <th><button class="btn btn-primary"
-                        onclick="">
-                  Foto do Estudante </button></th>
-              <th>Nome</th>
-              <th>Sexo</th>
-              <th>Planeta</th>
-            </tr>
-          </thead>
-          <tbody>
-             <tr *ngFor='let estudante of estudantes'>
-              <td>{{estudante.url}}</td>
-              <td>{{estudante.nome}}</td>
-              <td>{{estudante.altura}}</td>
-              <td>{{estudante.planeta}}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+  <div class="card-header">
+      {{tituloPagina}}
   </div>
+  <div class="card-body">
+      <div class="row">
+          <div class="col-md-2">Filtrar por:</div>
+          <div class="col-md-4">
+              <input type="text"/>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-md-6">
+              <h4>Filtrado por:</h4>
+          </div>
+      </div>
+      <div class="table-responsive">
+          <table class="table"
+              *ngIf='estudantes && estudantes.length'>
+              <thead>
+                  <tr>
+                      <th>
+                          <button class="btn btn-primary">
+                              Exibir Imagem
+                          </button>
+                      </th>
+                      <th>Nome</th>
+                      <th>Sexo</th>
+                      <th>Planeta</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor='let estudante of estudantes'>
+                      <td>
+                        <img [src] = 'estudante.url'
+                        [style.width.px] = 'larguraImagem'
+                        [style.margin.px] = 'margemImagem'>                        
+                    </td>
+                      <td>{{estudante.nome}}</td>
+                      <td>{{estudante.sexo}}</td>
+                      <td>{{estudante.planeta}}</td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+  </div>
+</div>
+
+
