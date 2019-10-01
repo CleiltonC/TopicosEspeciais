@@ -8,6 +8,8 @@ export class ListaEstudantesComponent {
     tituloPagina: string = 'Lista de Estudantes';
     larguraImagem: number = 50;
     margemImagem: number = 2;
+    exibirImagem: boolean = false;
+    filtroLista: string = 'estudante';
     estudantes: any[] =
     [
       {
@@ -239,4 +241,13 @@ export class ListaEstudantesComponent {
           "url": "./assets/imagens/palpatine.jpg"
       }
   ]
+    
+  alternarImagem(): void {
+    this.exibirImagem = !this.exibirImagem;
+  }
+
+  
 }
+export class ListaComponent {
+    filtroLista: string = 'estudante';
+    }
