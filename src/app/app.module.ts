@@ -6,6 +6,10 @@ import { AppComponent } from "./app.component";
 import { ListaEstudantesComponent } from "./estudantes/lista-estudantes.component";
 import { SexoPipe } from "./compartilhado/sexo.pipe";
 import { AlturaComponent } from "./compartilhado/altura.component";
+import { InMemoryDataService } from './in-memory-data.service';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpClientInMemoryWebApiModule } from "angular-in-memory-web-api";
+
 
 @NgModule({
   declarations: [
@@ -14,7 +18,16 @@ import { AlturaComponent } from "./compartilhado/altura.component";
     SexoPipe,
     AlturaComponent
   ],
-  imports: [BrowserModule, FormsModule],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    HttpClientModule,
+    HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, {
+      dataEncapsulation: false,
+      passThruUnknownUrl: true,
+      put204: false // return entity after PUT/update
+    })
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

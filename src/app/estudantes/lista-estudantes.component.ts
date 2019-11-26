@@ -7,11 +7,13 @@ import { EstudanteService } from './estudantes.service';
   templateUrl: "./lista-estudantes.component.html"
 })
 export class ListaEstudantesComponent implements OnInit {
+
   tituloPagina: string = "Lista de Estudantes";
   larguraImagem: number = 50;
   margemImagem: number = 2;
   exibirImagem: boolean = false;
-  _filtroLista: string;
+  listaEstudantes: IEstudante[];
+  _filtroLista: string= "Luke";
   get filtroLista(): string {
     return this._filtroLista;
   }
@@ -23,35 +25,39 @@ export class ListaEstudantesComponent implements OnInit {
   }
   alturaMaxima: number;
   alturasEstudantes: number[];
-  listaEstudantes: IEstudante[];
   estudantes: IEstudante[] = [];
+  mensagemErro: string;
+
+  constructor(private estudanteService: EstudanteService) {}
 
   ngOnInit(): void {
-    this.estudantes = this.estudanteService.getEstudante();
-    this.listaEstudantes = this.estudantes;
-    // Cria um array contendo somente as alturas dos estudantes (number[])
-    this.alturasEstudantes = this.estudantes.map(p => p.altura);
-    // Obtém a maior altura do array criado na instrução anterior
-    this.alturaMaxima = Math.max(...this.alturasEstudantes);
+    this.getEstudantes();
     this.filtroLista = "Leia";
   }
-
+  getEstudantes(): void {
+    this.estudanteService.getEstudantes().subscribe(
+      estudantes => {
+        this.estudantes = estudantes;
+        this.listaEstudantes = this.estudantes;
+        this.alturasEstudantes = this.estudantes.map(e => e.altura);
+        this.alturaMaxima = Math.max(...this.alturasEstudantes);
+      },
+      error => (this.mensagemErro = <any>error)
+    );
+    }
   alternarImagem(): void {
     this.exibirImagem = !this.exibirImagem;
   }
 
+
   executarFiltro(filtrarPor: string): IEstudante[] {
     filtrarPor = filtrarPor.toLocaleLowerCase();
     return this.estudantes.filter(
-      (produto: IEstudante) =>
-        produto.nome.toLocaleLowerCase().indexOf(filtrarPor) !== -1
+      (estudante: IEstudante) =>
+        estudante.nome.toLocaleLowerCase().indexOf(filtrarPor) !== -1
     );
   }
-  // constructor() {
-  //   this.listaEstudantes = this.estudantes;
-  //   this.filtroLista = "Luke";
-  // }
-  constructor(private estudanteService: EstudanteService) {}
+  
 }
 
 // export class ListaComponent {
